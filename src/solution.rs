@@ -2411,6 +2411,116 @@ impl Solution {
 
     pub fn solve_sudoku(board: &mut Vec<Vec<char>>) {
 
+        struct Grid {
+            x:usize,
+            y:usize,
+        };
+
+        impl Grid {
+
+            fn new(x:usize,y:usize) -> Grid {
+                Grid {
+                    x: x,
+                    y: y,
+                }
+            }
+
+            fn next(&self ) -> Option<Grid> {
+                if self.y == 8 {
+                    if self.x == 8 {
+                        return None;
+                    } else {
+                        return Some(Grid::new(self.x + 1,0));
+                    }
+                } else {
+                    return Some(Grid::new(self.x,self.y+1));
+                }
+            }
+
+            fn is_valid(&self ,board:&mut Vec<Vec<char>>) -> bool  {
+
+                if board[self.x][self.y] == '.' {
+                    return false;
+                }
+
+                for xx in 0..9 {
+                    if xx != self.x && board[xx][self.y] == board[self.x][self.y] {
+                        return false;
+                    }
+                }
+
+                for yy in 0..9 {
+                    if yy != self.y && board[self.x][yy] == board[self.x][self.y] {
+                        return false;
+                    }
+                }
+
+                let origin_x:usize = self.x / 3;
+                let origin_y:usize = self.y / 3;
+
+                for sub_x in 0..3 {
+                    for sub_y in 0..3 {
+
+                        let sub_board_x = origin_x*3 + sub_x;
+                        let sub_board_y = origin_y*3 + sub_y;
+                        if ! (sub_board_x == self.x && sub_board_y == self.y) && 
+                                board[sub_board_x][sub_board_y] == board[self.x][self.y] {
+                            return false;
+                        }
+
+                    }
+                }
+
+                true
+            }
+
+            fn find_valid_grid(&mut self,board:&mut Vec<Vec<char>>) -> bool {
+
+                if board[self.x][self.y] != '.' {
+
+                    if self.is_valid(board) {
+                        match self.next() {
+                            Some(mut next_grid) => {
+                                return next_grid.find_valid_grid(board);
+                            },
+                            None => {
+                                return true;
+                            }
+                        }
+                    } else {
+                        return false;
+                    }
+
+                } else {
+
+                    for ch in '1'..='9' {
+                        board[self.x][self.y] = ch;
+                        if self.is_valid(board) {
+                            match self.next() {
+                                Some(mut next_grid) => {
+                                    if next_grid.find_valid_grid(board) {
+                                        return true;
+                                    }
+                                },
+                                None => {
+                                    return true;
+                                }
+                            }
+                        } 
+                    }
+
+                    board[self.x][self.y] = '.';
+
+                }
+
+                false
+            }
+
+        }
+
+        let mut head = Grid::new(0,0);
+        head.find_valid_grid(board);
+
     }
 
     pub fn solve_solve_sudoku() {
@@ -2431,8 +2541,16 @@ impl Solution {
 
         let mut result = vec![vec!['5','3','4','6','7','8','9','1','2'],vec!['6','7','2','1','9','5','3','4','8'],vec!['1','9','8','3','4','2','5','6','7'],vec!['8','5','9','7','6','1','4','2','3'],vec!['4','2','6','8','5','3','7','9','1'],vec!['7','1','3','9','2','4','8','5','6'],vec!['9','6','1','5','3','7','2','8','4'],vec!['2','8','7','4','1','9','6','3','5'],vec!['3','4','5','2','8','6','1','7','9']];
         Solution::solve_sudoku(&mut board);
+        println!("{:?}",board);
         assert_eq!(board,result);
 
+    }
+
+    pub fn combination_sum(candidates: Vec<i32>, target:i32) -> Vec<Vec<i32>> {
+        let mut result:Vec<Vec<i32>> = Vec::new();
+
+
+        result
     }
 
 
@@ -2444,7 +2562,7 @@ impl Solution {
         // Solution::solve_find_substring();
         // Solution::solve_search_in_rotated_array();
         // Solution::solv_find_range_of_target_in_sorted_array();
-        Solution::solve_valid_sudoku();
+        // Solution::solve_solve_sudoku();
 
         struct NodeContext <'a> {
             group: Option<Box<ListNode>>,
@@ -2471,8 +2589,6 @@ impl Solution {
         });
 
     }
-
-
 
 
 }
