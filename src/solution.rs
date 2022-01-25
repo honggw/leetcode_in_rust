@@ -2414,7 +2414,7 @@ impl Solution {
         struct Grid {
             x:usize,
             y:usize,
-        };
+        }
 
         impl Grid {
 
@@ -2546,11 +2546,101 @@ impl Solution {
 
     }
 
+    // https://leetcode.com/problems/combination-sum/
     pub fn combination_sum(candidates: Vec<i32>, target:i32) -> Vec<Vec<i32>> {
+
         let mut result:Vec<Vec<i32>> = Vec::new();
+
+        if candidates.len() == 0 {
+            return result;
+        }
+
+        /*
+        if candidates.len() == 1 {
+            if candidates[0] == target {
+                return vec![vec![candidates[0]]];
+            } else {
+                return result;
+            }
+        }
+        */
+
+        let mut input = candidates.clone();
+
+        if input.len() > 1 {
+	        for i in 0..input.len() -2 {
+	            for j in i+1 .. input.len()-1 {
+	                if input[i] > input[j] {
+	                    let temp = input[i];
+	                    input[i] = input[j];
+	                    input[j] = temp;
+	                }
+	            }
+	        }
+        }
+        // println!("input = {:?}",input);
+
+        fn find_ordered_candidates(candidates :&[i32], target:i32) -> Vec<Vec<i32>> {
+
+            // println!("candidates = {:?},target = {}",candidates,target);
+
+            let mut chose_times:usize = 0;
+            let mut result:Vec<Vec<i32>> = Vec::new();
+
+            if candidates.len() == 0 || target == 0 {
+                return result;
+            }
+
+            loop {
+
+                let current_sum:i32 = chose_times as i32 * candidates[0] ; 
+
+                if current_sum == target {
+                    result.push(vec![candidates[0];chose_times]);
+                    break;
+                } else if current_sum > target {
+                    break;
+                } else {
+
+                    let sub_target = target - current_sum;
+                    let mut sub_result = find_ordered_candidates(&candidates[1..], sub_target);
+                    if sub_result.len() > 0 {
+                        // todo 
+                        // sub_result = sub_result.iter_mut().map(|combination|combination.append(vec![candidates[0];chose_times]) ).collect::<Vec<Vec<i32>>>();
+                        sub_result.iter_mut().for_each( |combination| combination.append(&mut vec![candidates[0];chose_times]));
+                        result.append(&mut sub_result);
+                    }
+
+                    chose_times += 1;
+
+                }
+            }
+
+            result
+        }
+
+        find_ordered_candidates(&input[..], target)
+    }
+
+    pub fn solve_combination_sum() {
+        // println!("result = {:?}",Solution::combination_sum(vec![2,3,6,7], 7));
+        // println!("result = {:?}",Solution::combination_sum(vec![2,3,5], 8));
+        // println!("result = {:?}",Solution::combination_sum(vec![2], 1));
+        println!("result = {:?}",Solution::combination_sum(vec![1], 1));
+        println!("result = {:?}",Solution::combination_sum(vec![1], 2));
+    }
+
+    // https://leetcode.com/problems/combination-sum-ii/
+    pub fn combination_sum2(candidates: Vec<i32>, target: i32) -> Vec<Vec<i32>> {
+
+        let mut result : Vec<Vec<i32>> = Vec::new();
 
 
         result
+    }
+
+    pub fn solve_combination_sum2() {
+
     }
 
 
@@ -2563,6 +2653,8 @@ impl Solution {
         // Solution::solve_search_in_rotated_array();
         // Solution::solv_find_range_of_target_in_sorted_array();
         // Solution::solve_solve_sudoku();
+        //Solution::solve_combination_sum();
+        Solution::solve_combination_sum2();
 
         struct NodeContext <'a> {
             group: Option<Box<ListNode>>,
@@ -2587,6 +2679,10 @@ impl Solution {
         let result  = std::thread::spawn(move || async {
             task.await
         });
+
+        let mut arr = vec![1];
+
+        let _ = arr.iter_mut().map(|item| *item+1 ).collect::<Vec<i32>>();
 
     }
 
