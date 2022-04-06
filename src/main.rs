@@ -1,5 +1,7 @@
 
 mod solution;
+mod learning;
+mod problems;
 
 
 fn main() {
@@ -20,7 +22,15 @@ fn main() {
     // solution::Solution::solve_four_sum();
     // solution::Solution::solve_letter_combinations();
     // solution::Solution::solve_remove_nth_from_end();
-    solution::Solution::main();
+    // solution::Solution::main();
+    // problems::p44_wildcard_matching::wildcard_matching(String::from("abbabaaabbabbaababbabbbbbabbbabbbabaaaaababababbbabababaabbababaabbbbbbaaaabababbbaabbbbaabbbbababababbaabbaababaabbbababababbbbaaabbbbbabaaaabbababbbbaababaabbababbbbbababbbabaaaaaaaabbbbbaabaaababaaaabb"),String::from("**aa*****ba*a*bb**aa*ab****a*aaaaaa***a*aaaa**bbabb*b*b**aaaaaaaaa*a********ba*bbb***a*ba*bb*bb**a*b*bb"));
+    // problems::p44_wildcard_matching::wildcard_matching(String::from("abcabczzzde"), String::from("*abc???de*"));
+    problems::p44_wildcard_matching::solve_wildcard_matching();
+
+    /**
+     *    abbabaaabbabbaababbabbbbbabbbabbbabaaaaababababbbabababaabbababaabbbbbbaaaabababbbaabbbbaabbbbababababbaabbaababaabbbababababbbbaaabbbbbabaaaabbababbbbaababaabbababbbbbababbbabaaaaaaaabbbbbaabaaababaaaabb
+     *    **aa*****ba*a*bb**aa*ab****a*aaaaaa***a*aaaa**bbabb*b*b**aaaaaaaaa*a********ba*bbb***a*ba*bb*bb**a*b*bb
+     */
 
 
 
