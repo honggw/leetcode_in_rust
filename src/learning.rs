@@ -70,7 +70,7 @@ fn test_outside() {
 
 
 #[cfg(test)]
-mod test{
+mod test {
     #[test]
     fn testQueueNodeNew() {
         println!("hello test");

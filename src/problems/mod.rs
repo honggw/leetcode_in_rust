@@ -23,3 +23,20 @@ pub mod p51_n_queens;
 
 // https://leetcode.com/problems/n-queens-ii/
 pub mod p52_n_queens_ii;
+
+// https://leetcode.com/problems/spiral-matrix/
+pub mod p54_spiral_matrix;
+
+
+// https://leetcode.com/problems/jump-game/
+pub mod p55_jump_game;
+
+
+// https://leetcode.com/problems/merge-intervals/
+pub mod p56_merge_intervals;
+
+// https://leetcode.com/problems/insert-interval/
+pub mod p57_insert_iterval;
+
+// https://leetcode.com/problems/length-of-last-word/
+pub mod p58_length_of_last_word;
