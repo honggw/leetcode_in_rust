@@ -40,3 +40,18 @@ pub mod p57_insert_iterval;
 
 // https://leetcode.com/problems/length-of-last-word/
 pub mod p58_length_of_last_word;
+
+// https://leetcode.com/problems/spiral-matrix-ii/
+pub mod p59_spiral_matrix_ii;
+
+// https://leetcode.com/problems/permutation-sequence/
+pub mod p60_permutation_sequence;
+
+// https://leetcode.com/problems/rotate-list/
+pub mod p61_rotate_list;
+
+// https://leetcode.com/problems/unique-paths/
+pub mod p62_unique_paths;
+
+// https://leetcode.com/problems/unique-paths-ii/
+pub mod p63_unique_paths_ii;
